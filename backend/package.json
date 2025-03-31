@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend of asset tokenization",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ashu",
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^0.0.7"
+  }
+}
