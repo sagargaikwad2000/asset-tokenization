@@ -1,2 +1,2 @@
-hardhat/artifacts
-hardhat/node_modules
+*/node_modules
+hardhat/artifact

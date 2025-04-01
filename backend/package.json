@@ -1,14 +1,24 @@
 {
-  "name": "backend",
+  "name": "asset-tokenization-backend",
   "version": "1.0.0",
   "description": "backend of asset tokenization",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
   },
   "author": "ashu",
   "license": "ISC",
   "devDependencies": {
-    "hardhat": "^0.0.7"
+    "hardhat": "^0.0.7",
+    "nodemon": "^3.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/sagargaikwad2000/asset-tokenization"
+  },
+  "dependencies": {
+    "ethers": "^6.13.5",
+    "express": "^5.1.0"
   }
 }
