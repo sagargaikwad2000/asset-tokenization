@@ -22,6 +22,7 @@ contract Asset {
     }
 
     struct Record {
+        address _account;
         uint256 currentRate;
         uint256 quantity;
         uint256 amountPaid;
@@ -54,7 +55,7 @@ contract Asset {
         uint256 _amountPaid,
         uint256 _purity,
         uint256 _timestamp
-    ) public onlyOwner {
+    ) public {
         require(_account != address(0), "account can't be empty");
         require(_currentRate != 0, "currentRate can't be empty");
         require(_quantity != 0, "quantity can't be empty");
@@ -63,6 +64,7 @@ contract Asset {
         require(_timestamp != 0, "timestamp paid can't be empty");
 
         Record memory record = Record(
+            _account,
             _currentRate,
             _quantity,
             _amountPaid,
@@ -78,9 +80,7 @@ contract Asset {
      * @param _account Address of the buyer.
      * @return Record struct containing the latest purchase details.
      */
-    function getRecord(
-        address _account
-    ) public view onlyOwner returns (Record memory) {
+    function getRecord(address _account) public view returns (Record memory) {
         require(_account != address(0), "account can't be empty");
         return accountToRecord[_account];
     }
@@ -92,7 +92,7 @@ contract Asset {
      */
     function getHistory(
         address _account
-    ) public view onlyOwner returns (Record[] memory) {
+    ) public view returns (Record[] memory) {
         require(_account != address(0), "account can't be empty");
         return recordHistory[_account];
     }

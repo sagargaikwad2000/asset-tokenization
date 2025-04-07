@@ -1,8 +1,13 @@
 const router = require("express").Router();
+const recordController = require("./controller/record");
 
-router.get("/", (req, res) => {
-    res.send("Hello");
-})
+
+// record routes
+router.post("/record/create", recordController.create);
+router.get("/record/:id", recordController.getRecord);
+router.get("/record/history/:id", recordController.getHistory);
+
+
 
 
 module.exports = router;
