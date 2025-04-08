@@ -4,7 +4,7 @@ const fs = require("fs");
 class Interact {
     constructor() {
         this.provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
-        this.contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+        this.contractAddress = "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318";
         this.contractWithProvider = null;
         this.contractWithSigner = null;
 
@@ -13,20 +13,22 @@ class Interact {
     async init() {
         const contractABI = JSON.parse(
             fs.readFileSync(
-                "hardhat/artifact/contracts/asset.sol/Asset.json",
+                "/Users/sagargaikwad/Documents/Me/Projects/Asset Tokenization/hardhat/artifacts/contracts/asset.sol/Asset.json",
                 "utf8"
             )
         );
 
         this.accounts = await this.provider.listAccounts();
-        this.signer = this.provider.getSigner();
+        this.signer = await this.provider.getSigner();
         this.contractWithSigner = new ethers.Contract(this.contractAddress, contractABI.abi, this.signer);
         this.contractWithProvider = new ethers.Contract(this.contractAddress, contractABI.abi, this.provider);
 
     }
 
     async invoke(functionName, args = []) {
-        if (!this.contract) {
+
+
+        if (!this.contractWithSigner) {
             await this.init();
         }
         if (!this.contractWithSigner[functionName]) {
@@ -34,7 +36,6 @@ class Interact {
         }
 
         try {
-            console.log(`Calling function: ${functionName} with args:`, args);
             const tx = await this.contractWithSigner[functionName](...args);
             await tx.wait();
             return tx;
@@ -52,7 +53,6 @@ class Interact {
         }
 
         try {
-            console.log(`Calling function: ${functionName} with args:`, args);
             const result = await this.contractWithProvider[functionName](...args);
             return result;
         } catch (error) {
