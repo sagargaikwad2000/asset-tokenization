@@ -1,28 +1,6 @@
 const { json } = require("express");
 const interact = require("../interact");
-
-
-function convertBigIntsToNumbers(data) {
-    if (typeof data === 'bigint') {
-        return Number(data);
-    }
-
-    if (Array.isArray(data)) {
-        return data.map(convertBigIntsToNumbers);
-    }
-
-    if (data !== null && typeof data === 'object') {
-        const converted = {};
-        for (const key in data) {
-            if (!isNaN(Number(key))) continue;
-            converted[key] = convertBigIntsToNumbers(data[key]);
-        }
-        return converted;
-    }
-
-    return data;
-}
-
+const utils = require("../service/utils");
 
 class RecordController {
     async create(req, res) {
@@ -39,7 +17,7 @@ class RecordController {
         const account = req.params.id;
         const result = await interact.query("getRecord", [account]);
 
-        const serialized = convertBigIntsToNumbers(result);
+        const serialized = utils.convertBigIntsToNumbers(result);
 
         res.json(serialized);
     }
@@ -50,7 +28,7 @@ class RecordController {
             const account = req.params.id;
             const result = await interact.query("getHistory", [account]);
             const plain = Array.from(result);
-            const serialized = convertBigIntsToNumbers(plain);
+            const serialized = utils.convertBigIntsToNumbers(plain);
             res.json(serialized);
         } catch (err) {
             console.error(err);

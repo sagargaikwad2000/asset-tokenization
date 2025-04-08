@@ -4,7 +4,7 @@ const fs = require("fs");
 class Interact {
     constructor() {
         this.provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
-        this.contractAddress = "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318";
+        this.contractAddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
         this.contractWithProvider = null;
         this.contractWithSigner = null;
 
